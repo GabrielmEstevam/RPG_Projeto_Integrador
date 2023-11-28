@@ -1,0 +1,334 @@
+import java.util.Scanner;
+import java.io.IOException;
+import java.lang.*;
+import java.lang.reflect.Array;
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
+
+
+public class Main {
+	
+	
+	
+	static int menu(int n)
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("\nEscolha uma das opções para iniciar: ");
+		System.out.println("1 - Instruções ");
+		System.out.println("2 - Jogar");
+		System.out.println("3 - Creditos");
+		System.out.println("4 - Sair");
+		
+		return n;
+		
+	}
+	
+	 public static void exibirTexto(String texto, TimeUnit unit, long tempo_mensagem) {
+	        try {
+	            Digita(texto, unit, tempo_mensagem);
+	        } catch (InterruptedException e) {
+	            // Tratar interrupções
+	        }
+	    }
+
+	    public static void Digita(String mensagem, TimeUnit unit, long tempo_mensagem) throws InterruptedException {
+	        for (char caractere : mensagem.toCharArray()) {
+	            System.out.print(caractere);
+	            unit.sleep(tempo_mensagem);
+	        }
+	    }
+	    
+	    
+	    static int escolherPergunta(int a)
+	    {
+			ArrayList<String> alternativas3 = new ArrayList<>();
+			
+			String a0 = "\r\n Qual desses pode ser considerado um sintoma do Technostress ";
+			String a1 = "(A) Tensão Muscular, Dor de cabeça e Fadiga ";
+			String a2 = "(B) Vômitos, Alucinação e perda de memoria ";
+			String a3 = "(C) Alucinação e síndrome de borderline ";
+			String a4 = "(D) Agressividade e repulsão ";
+			
+			alternativas3.add(a1);
+			alternativas3.add(a2);
+			alternativas3.add(a3);
+			alternativas3.add(a4);
+			
+            ArrayList<String> alternativas4 = new ArrayList<>();
+			
+			String b0 = "Quando foi iniciada a sexta geração de computadores ";
+			String b1 = "(A)2006";
+			String b2 = "(B)2002";
+			String b3 = "(C)2000";
+			String b4 = "(D) 1998";
+			
+			alternativas3.add(b1);
+			alternativas3.add(b2);
+			alternativas3.add(b3);
+			alternativas3.add(b4);
+			
+            ArrayList<String> alternativas5 = new ArrayList<>();
+			
+			String c0 = "\nQual a diferença entre eficiência e eficácia, respectivamente: ";
+			String c1 = "(A) um é relacionado a produção divido pelo que é consumido e o outro relacionado a grau que um sistema alcança suas metas ";
+			String c2 = "(B) um é relacionado a desempenho e o outro a compensação";
+			String c3 = "(C) um é relacionado a produção e o outro é relacionado a produção divido pelo que é consumido";
+			String c4 = "(D)  um é relacionado ao grau que um sistema alcança suas metas e o outro é relacionado a alta produtividade ";
+			
+			alternativas3.add(c1);
+			alternativas3.add(c2);
+			alternativas3.add(c3);
+			alternativas3.add(c4);
+			
+			return a;
+			
+			
+	    }
+	    
+	    static ArrayList perguntas()
+	    {
+	    	 ArrayList<String> alternativas4 = new ArrayList<>();
+				
+				String b0 = "\r\nQuando foi iniciada a sexta geração de computadores ";
+				String b1 = "\r\n(A)2006";
+				String b2 = "\r\n(B)2002";
+				String b3 = "\r\n(C)2000";
+				String b4 = "\r\n(D) 1998";
+				
+				
+				alternativas4.add(b0);
+				alternativas4.add(b1);
+				alternativas4.add(b2);
+				alternativas4.add(b3);
+				alternativas4.add(b4);
+				
+				return alternativas4;
+	    }
+	    
+	    static ArrayList perguntas1()
+	    {
+           ArrayList<String> alternativas3 = new ArrayList<>();
+			
+			String b0 = "\r\nQuando foi iniciada a sexta geração de computadores ";
+			String b1 = "\r\\n(A)2006";
+			String b2 = "\r\n(B)2002";
+			String b3 = "\r\n(C)2000";
+			String b4 = "\r\n(D) 1998";
+			
+			alternativas3.add(b0);
+			alternativas3.add(b1);
+			alternativas3.add(b2);
+			alternativas3.add(b3);
+			alternativas3.add(b4);
+				
+			return alternativas3;
+	    }
+	    
+	    
+	    static ArrayList perguntas2()
+	    {
+           ArrayList<String> alternativas3 = new ArrayList<>();
+			
+			String a0 = "\r\nQual desses pode ser considerado um sintoma do Technostress ";
+			String a1 = "\r\n(A) Tensão Muscular, Dor de cabeça e Fadiga ";
+			String a2 = "\r\n(B) Vômitos, Alucinação e perda de memoria ";
+			String a3 = "\r\n(C) Alucinação e síndrome de borderline ";
+			String a4 = "\r\n(D) Agressividade e repulsão ";
+			
+			alternativas3.add(a0);
+			alternativas3.add(a1);
+			alternativas3.add(a2);
+			alternativas3.add(a3);
+			alternativas3.add(a4);
+				
+				return alternativas3;
+	    }
+	    
+	    static char respostaCorreta()
+	    {
+	    	Scanner sc = new Scanner(System.in);
+	    	
+	    	char r;
+	    	
+	    	r = sc.next().charAt(0);
+	    	
+	    	if(r == 'c' || r == 'C')
+	    	{
+	    		exibirTexto("Resposta Correta", TimeUnit.MILLISECONDS, 50);
+	    	}
+	    	
+	    	return r;
+	    }
+	    
+	    static char respostaInCorreta(int vida)
+	    {
+	    	Scanner sc = new Scanner(System.in);
+	    	
+	    	char r;
+	    	vida =0;
+	    	
+	    	r = sc.next().charAt(0);
+	    	
+	    	if(r == 'a' || r == 'A' ||r == 'b' || r == 'B' || r == 'd' || r == 'D' )
+	    	{
+	    		exibirTexto("Resposta incorreta", TimeUnit.MILLISECONDS, 50);
+				vida -=10;
+
+	    	}
+	    	
+	    	return r;
+	    }
+	    
+	    
+	
+	
+	
+	public static void main(String[]args) throws IOException
+	{
+		Scanner sc = new Scanner(System.in);
+		
+		Random random = new Random();
+		
+		int vida = 100;
+		int n = 0;
+		char rc;
+		char ri;
+		
+		ArrayList<String> alternativas = new ArrayList<String>();
+		
+		
+		int a = random.nextInt(1,4);
+		System.out.println(a);
+		
+		
+		
+		exibirTexto("Bem vindo ao universo de...", TimeUnit.MILLISECONDS, 50);
+
+		menu(n);
+		n = sc.nextInt();
+
+		do
+		{
+			switch(n)
+			{
+			case 1:
+				exibirTexto("As instruções do jogo são: ", TimeUnit.MILLISECONDS, 50);
+			break;
+			case 2:
+				exibirTexto("Perfeito vamos ao jogo!!", TimeUnit.MILLISECONDS, 50);
+			break;
+			case 3: 
+				exibirTexto("Desenvolvedores...", TimeUnit.MILLISECONDS, 50);
+			break;
+			case 4: 
+				exibirTexto("Saindo do jogo", TimeUnit.MILLISECONDS, 50);
+				sc.close();
+			break;
+			default:
+				exibirTexto("Codigo Invalido, Por favor digite novamente ", TimeUnit.MILLISECONDS, 50);
+			}
+			
+			
+			if(n != 2)
+			{
+				menu(n);
+				n = sc.nextInt();
+			}
+			
+		}while(n != 2);
+		
+		
+		
+		
+		
+		if(n == 4 && n == 3 && n == 1)
+		{
+			System.exit(0);
+		}
+		
+		
+		
+		
+		
+		sc.nextLine();
+		
+		
+		
+		
+		
+		
+		exibirTexto("Assim começa a historia de...", TimeUnit.MILLISECONDS, 50);
+		
+		exibirTexto("Você encontrou o... lute com ele para continuar sua jornada", TimeUnit.MILLISECONDS, 50);
+		
+		char r1;
+		
+		
+		
+		ArrayList<String> alternativas2 = new ArrayList<String>();
+		ArrayList<String> alternativas3 = new ArrayList<String>();
+		
+		
+		
+			
+		do
+		{
+			if(a == 1)
+			{
+				alternativas = perguntas();
+
+				while(!alternativas.isEmpty())
+				{
+					exibirTexto(alternativas.remove(0), TimeUnit.MILLISECONDS, 50);
+				}
+			}
+			else if(a == 2)
+			{
+				alternativas = perguntas1();
+
+			    while(!alternativas.isEmpty())
+			    {
+				    exibirTexto(alternativas.remove(0), TimeUnit.MILLISECONDS, 50);
+			    }
+				
+			}
+			else if(a == 3)
+			{
+				alternativas = perguntas2();
+
+			    while(!alternativas.isEmpty())
+			    {
+				    exibirTexto(alternativas.remove(0), TimeUnit.MILLISECONDS, 50);
+			    }
+				
+			}
+			
+			rc = respostaCorreta();
+			
+			
+			r1 = sc.next().charAt(0);
+			
+			Collections.shuffle(alternativas2);
+			
+			ri = respostaInCorreta(vida);
+			
+			
+			
+			
+			
+		}
+		while(r1 != 'a' );
+	
+			
+			
+			
+		exibirTexto("Parabens, você eliminou o ... Continue a jornada, sua vida apos essa batalha é " + vida + "%", TimeUnit.MILLISECONDS, 50);		
+	}
+
+	
+
+}

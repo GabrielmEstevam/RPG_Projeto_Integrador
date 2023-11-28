@@ -1,0 +1,261 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+/**
+ *
+ * @author joao.pssilvano
+ */
+public class Jogo {
+
+    static int vida;
+    static int pontos;
+
+    //Exibe o texto como se fosse um comando de print, só que com ajuste no tempo de cada palavra, letra ou frase
+    static void exibirTexto(String texto, TimeUnit unit, long tempo_mensagem) {
+        try {
+            Digita(texto, unit, tempo_mensagem);
+        } catch (InterruptedException e) {
+            // Tratar interrupções
+        }
+    }
+
+    //conjunto do exibirTexto
+    static void Digita(String mensagem, TimeUnit unit, long tempo_mensagem) throws InterruptedException {
+        for (char caractere : mensagem.toCharArray()) {
+            System.out.print(caractere);
+            unit.sleep(tempo_mensagem);
+        }
+    }
+    
+     //Função que imprime o menu e recebe a escolha do usuario
+    static int menu(int mChoice) {
+        Scanner entry = new Scanner(System.in);
+
+        System.out.println("");
+        System.out.println("          MENU         \n ");
+        System.out.println("1 - Instruções");
+        System.out.println("2 - Jogar");
+        System.out.println("3 - Créditos");
+        System.out.println("4 - Sair");
+        System.out.print("Insira uma das opções: ");
+        mChoice = entry.nextInt();
+        return mChoice;
+    }
+
+    //Função para dar a opção do usuario voltar ao menu
+    static void yANDn(String choice, String phrase1) {
+        Scanner entry = new Scanner(System.in);
+        do {
+            System.out.println(phrase1 + "\n\n");
+            choice = entry.next();
+
+            if (choice.equalsIgnoreCase("0")) {
+                System.out.println("Voltando ao menu...\n\n");
+            } else {
+                System.out.println("operação invalida.\nTente novamente.\n\n");
+            }
+        } while (!choice.equalsIgnoreCase("0"));
+    }
+    
+    //Função que dita o que acontece baseado na esolha que o usuario fez no menu
+    static void menuGuts(int mChoice) {
+        String insChoice = null;
+        switch (mChoice) {
+
+            case 1 -> {
+                System.out.println("\n\nAs regras são...\n\n");
+                yANDn(insChoice, "Insira o numero 0 para voltar ao menu.");
+            }
+
+            case 2 -> {
+                System.out.println("\n\n\nBem-vindo a MagnoHeinn\n\n\n");
+                System.out.println("Um mundo de Magia da Computação, onde a tecnologia e a magia se fundem em um só.\n"
+                        + "Nosso herói, Patolino, é um mago que se dedica a dominar a arte da programação e dos algoritmos.\n"
+                        + "Ele é conhecido por ser um dos melhores magos da computação do reino, mas ele não está satisfeito com o seu status atual.\n"
+                        + "Ele quer se tornar o maior mago da computação que já existiu, e para isso, ele precisa encontrar o lendário Diploma Dourado.\n\n");
+            }
+            case 3 -> {
+                System.out.println("\n\nCriado por...\n\n");
+                yANDn(insChoice, "Insira o numero 0 para voltar ao menu.");
+            }
+            case 4 ->
+                System.out.println("\n\nEncerrando...\n\n");
+            default ->
+                System.out.println("\n\nOpção invalida\n\nInsira uma opção valida...\n\n");
+        }
+    }
+
+    //Função para adicinar as respostas a um arrayList
+    static List <String> colocaRes(List <String> arrayPer, String per, String resA, String resB, String resC, String rC){
+        List <String> res = new ArrayList();
+        if (arrayPer.get(0).equals (per)) {
+                            res.add("Quinta Geração.");/*resposta correta*/
+                            res.add("Sexta Gereção.");
+                            res.add("Setima Geração.");
+                            rC = "Sexta Gereção.";
+                        }
+        return res;
+    }
+    
+    //Função que faz o print das perguntas e recebe e retorna e aresposta dada pelo usuario
+    static String Perg(String escolhaRes, List<String> per, List<String> res) {
+        Scanner entry = new Scanner(System.in);
+        System.out.println("\n\nvida: " + vida);
+        System.out.println("\n\n" + per.get(0));
+        System.out.println("a)" + res.get(0)
+                + "\nb)" + res.get(1)
+                + "\nc)" + res.get(2) + "\n");
+        escolhaRes = entry.next();
+        return escolhaRes;
+    }
+
+    //Função que controla o que acontecera baseado na resposta que o usuario deu para a pergunta
+    static boolean Res(boolean controleAcerto, String escolhaRes, List<String> res, String resC, int dano) {
+        switch (escolhaRes) {
+            case "a", "A" -> {
+                if (res.get(0).equals(resC)) {
+                    System.out.println("resposta correta\n\n");
+                    controleAcerto = true;
+                    pontos++;
+                    break;
+
+                } else {
+                    exibirTexto("Resposta incorreta.", TimeUnit.MILLISECONDS, 25);
+                    subDano(dano);
+                }
+            }
+            case "b", "B" -> {
+                if (res.get(1).equals(resC)) {
+                    System.out.println("resposta correta\n\n");
+                    controleAcerto = true;
+                    pontos++;
+                    break;
+                } else {
+                    exibirTexto("Resposta incorreta.", TimeUnit.MILLISECONDS, 25);
+                    subDano(dano);
+                }
+            }
+            case "c", "C" -> {
+                if (res.get(2).equals(resC)) {
+                    System.out.println("resposta correta\n\n");
+                    controleAcerto = true;
+                    pontos++;
+                    break;
+                } else {
+                    exibirTexto("Resposta incorreta.", TimeUnit.MILLISECONDS, 25);
+                    subDano(dano);
+                }
+            }
+            default ->
+                System.out.println("Resposta invalida tente novamente.\n\n");
+        }
+        return controleAcerto;
+    }
+
+    //Função que contabiliza o dano na vida
+    static void subDano(int dam) {
+        vida -= dam;
+    }
+
+    //classe principal do codigo
+    public static void main(String[] args) {
+        Scanner entry = new Scanner(System.in);
+        //Variavel que recebe a resposta para as perguntas
+        String escolhaRes = null;
+        //Variavel que recebe a resposta correta da pergunta em questão
+        String rC = null;
+        //Variavel que recebe a escolha do menu que o usuario fez
+        int escolhaMenu = 0;
+        //Variaveis que contem os danos que os inimigos causam nos personagens
+        int dano1 = 10;
+        int dano2 = 25;
+        int dano3 = 30;
+        //Variavel de controle da fase(controla se o usuario acertou ou errou a pergunta)
+        boolean controleAcerto = false;
+        //Variavel que dita a quantidade de vida
+        vida = 100;
+        //Variavel de controle para o fim do jogo.
+        pontos = 0;
+
+        /*Criação de  arrays.
+        *lv = dificuldade
+        *per = pergunta
+        *res = resposta*/
+        List<String> lv1Per = new ArrayList();
+        List<String> lv1Res = new ArrayList();
+
+        List<String> lv2Per = new ArrayList();
+        List<String> lv2Res = new ArrayList();
+
+        List<String> lv3Per = new ArrayList();
+        List<String> lv3Res = new ArrayList();
+
+        //Loop que impede o jogo de fechar a menos que o usuario escolha a opção sair do menu
+        do {
+            //Função que mostra as opções do menu, e pede para escolher uma das opções
+            escolhaMenu = menu(escolhaMenu);
+            //Função que direciona o que será mostrado depois da escolha do menu
+            menuGuts(escolhaMenu);
+            if (escolhaMenu == 2) {
+                do {
+
+                    /*Este loop  será usado para a execusão da primeira fase do jogo
+                    * caso o usuario não acerte a questão antes de perder toda a vida ele voltara ao menu
+                    * e no caso de ele acertar será direcionado a proxima fase(proximo loop while)*/
+                    while (controleAcerto == false && vida > 0) {
+
+                        //Reiniciando variavel de controle
+                        controleAcerto = false;
+
+                        //Reiniciando variavel de controle
+                        escolhaRes = null;
+
+                        //Reiniciando variavel de controle
+                        rC = null;
+
+                        //Declaração de conteudo do array de perguntas, 3 perguntas são adicionadas.
+                        lv1Per.add("Qual a geraçao de computadores que estamos atualmente?");
+                        lv1Per.add("Quem é considerado o Pai da Computaçao?");
+                        lv1Per.add("Onde foi inventado o sistema de numeraçao decimal?");
+                        Collections.shuffle(lv1Per);
+                        Collections.shuffle(lv1Per);
+
+                        //Chama a função que adiciona a resposta ao array de resposta
+                        lv1Res = colocaRes(lv1Per, "Qual a geraçao de computadores que estamos atualmente?",
+                                "Quinta Geração.","Sexta Gereção.","Setima Geração.","Sexta Gereção.");
+                        lv1Res = colocaRes(lv1Per, "Quem é considerado o Pai da Computaçao?",
+                                "Patolino o mago supremo.","Charles Babbage.","Allan Turing.","Allan Turing.");
+                        lv1Res = colocaRes(lv1Per, "Onde foi inventado o sistema de numeraçao decimal?",
+                                "Italia(Roma).","Egito.","India.","Italia(Roma).");
+
+                        //Embaralhamento das respostas.
+                        Collections.shuffle(lv1Res);
+
+                        //Puxando as funções que executam e testam as perguntas
+                        escolhaRes = Perg(escolhaRes, lv1Per, lv1Res);
+                        controleAcerto = Res(controleAcerto, escolhaRes, lv1Res, rC, dano1);
+
+                        /*Remoção do conteudo do array, para não ocorrer repetição no shuffle
+                         *e para que os arrays sejam reutilizados em outras perfuntas*/
+                        lv1Per.clear();
+                        lv1Res.clear();
+                    }
+
+                    //Condicional final que diz se o usuario finalizou o jogo ou morreu
+                    if (vida <= 0) {
+                        System.out.println("*___________GAME OVER___________*");
+                    } else if (pontos >= 1) {
+                        System.out.println("*______________Fim_______________*");
+                    }
+
+                } while (vida > 0 && pontos < 1);
+            }
+        } while (escolhaMenu != 4);
+        entry.close();
+    }
+}
